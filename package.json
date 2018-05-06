@@ -1,0 +1,34 @@
+{
+  "name": "donutty",
+  "version": "1.0.0",
+  "description": "Create SVG donut charts with Javascript",
+  "main": "donutty.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "js",
+    "javascript",
+    "donut",
+    "donutty",
+    "chart",
+    "graph",
+    "doughnut",
+    "doughnutty",
+    "circle"
+  ],
+  "author": {
+    "name": "simeydotme",
+    "email": "simey.me@gmail.com",
+    "url": "http://simey.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/simeydotme/donutty"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1"
+  }
+}
