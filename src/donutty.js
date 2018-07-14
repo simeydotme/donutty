@@ -169,7 +169,7 @@
 
     };
 
-    donutty.prototype.setValue = function( prop, val ) {
+    donutty.prototype.set = function( prop, val ) {
 
         var values;
 
