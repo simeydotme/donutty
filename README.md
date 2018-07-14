@@ -80,7 +80,7 @@ There's a couple of ways to configure **donutty** depending on how you prefer:
 | **`padding`** | `Number` | `4` | padding between the background (track) and the donut |
 | **`bg`** | `String` | `"rgba(70, 130, 180, 0.15)"` | the color of the background (track) |
 | **`color`** | `String` | `"mediumslateblue"` | color of the actual donut |
-| **`transition`** | `String` | `[(1) see below](#default-transition)` | the default animation which runs on the donut |
+| **`transition`** | `String` | `[¹ see below](#1-default-transition)` | the default animation which runs on the donut |
 
 ##### (1) default transition
 `"all 1.2s cubic-bezier(0.57, 0.13, 0.18, 0.98)"`
