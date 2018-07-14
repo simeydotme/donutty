@@ -1,7 +1,7 @@
 # donutty 🍩📉
 Simple (but powerful) SVG donut charts with JavaScript (or jQuery)
 
-![Example of almost-default configuration](../master/docs/images/donutty-default.gif)
+![Example of almost-default configuration](../master/docs/images/donutty-updated.gif)
 
 ## installation
 
@@ -100,16 +100,16 @@ var elem = document.getElementById( "donut" );
 var chart = new Donutty( elem, { max: 500, value: 100 });
 
 // then lets modify the values
-chart.set("value", 300).set("min", 100).set("max", 300);
+chart.set( "value", 300 ).set( "min", 100 ).set( "max", 300 ).set( "bg", "aquamarine" ).set( "color", "slategrey" );
 
 // or;
-chart.setState( 100, 0, 300 )
+chart.setState({ min: 100, max: 300, value: 300, color: "", bg: "aquamarine", color: "slategrey" )
 ```
 
 | method | arguments | arg types | description |
 | -----: | :-------- | :-------- | :---------- |
 | `set` | `[ property, value ]` | `[ String, Number ]` | Set a property's value (`min`, `max`, `value`)
-| `setState` | `[ value, min, max ]` | `[ Number, Number, Number ]` | Set the values for all properties
+| `setState` | `[ newState ]` | `[ Object ]` | Set the values for multiple properties (`min`, `max`, `value`, `bg`, `color`)
 
 ---
 

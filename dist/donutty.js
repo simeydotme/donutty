@@ -1,7 +1,7 @@
 /**
  * donutty // Create SVG donut charts with Javascript
  * @author simeydotme <simey.me@gmail.com>
- * @version 1.0.3
+ * @version 1.1.0
  * @license ISC
  * @link http://simey.me
  * @preserve
@@ -50,8 +50,8 @@
         _this.options.padding =     isDefined( _this.options.padding ) ? float( _this.options.padding ) : 4;
         _this.options.radius =      float( _this.options.radius ) || 50;
         _this.options.thickness =   float( _this.options.thickness ) || 10;
-        _this.options.bg =          _this.options.bg || "#ECEFF1";
-        _this.options.color =       _this.options.color || "#7E57C2";
+        _this.options.bg =          _this.options.bg || "rgba(70, 130, 180, 0.15)";
+        _this.options.color =       _this.options.color || "mediumslateblue";
         _this.options.transition =  _this.options.transition || "all 1.2s cubic-bezier(0.57, 0.13, 0.18, 0.98)";
 
         _this.init();
@@ -65,6 +65,8 @@
         this.state.min = this.options.min;
         this.state.max = this.options.max;
         this.state.value = this.options.value;
+        this.state.bg = this.options.bg;
+        this.state.color = this.options.color;
 
         this.createFragments();
 
@@ -95,7 +97,7 @@
         this.$bg.setAttribute( "cy", "50%" );
         this.$bg.setAttribute( "r", this.options.radius );
         this.$bg.setAttribute( "fill", "transparent" );
-        this.$bg.setAttribute( "stroke", this.options.bg );
+        this.$bg.setAttribute( "stroke", this.state.bg );
         this.$bg.setAttribute( "stroke-width", this.options.thickness + this.options.padding );
         this.$bg.setAttribute( "stroke-dasharray", values.full * values.multiplier );
 
@@ -103,7 +105,7 @@
         this.$donut.setAttribute( "cx", "50%" );
         this.$donut.setAttribute( "cy", "50%" );
         this.$donut.setAttribute( "r", this.options.radius );
-        this.$donut.setAttribute( "stroke", this.options.color );
+        this.$donut.setAttribute( "stroke", this.state.color );
         this.$donut.setAttribute( "stroke-width", this.options.thickness );
         this.$donut.setAttribute( "stroke-dashoffset", values.full );
         this.$donut.setAttribute( "stroke-dasharray", values.full );
@@ -165,18 +167,33 @@
 
         var _this = this;
 
+        // ensure the transition property is applied before
+        // the actual properties are set, so that browser renders
+        // the transition
+        _this.$bg.style.transition = this.options.transition;
         _this.$donut.style.transition = this.options.transition;
 
-        window.requestAnimationFrame( function() {
+        // use a short timeout (~60fps) to simulate a new
+        // animation frame (not using rAF due to ie9 problems)
+        window.setTimeout( function() {
 
             _this.$donut.setAttribute( "stroke-dashoffset", fill );
             _this.$donut.setAttribute( "stroke-dasharray", full );
+            _this.$bg.setAttribute( "stroke", _this.state.bg );
+            _this.$donut.setAttribute( "stroke", _this.state.color );
             _this.$donut.style.opacity = 1;
 
-        });
+        }, 16 );
 
     };
 
+    /**
+     * set an individual state property for the chart
+     * @param  {string}         prop the property to set
+     * @param  {string/number}  val  the value of the given property
+     * @return {object}              the donut instance
+     * @chainable
+     */
     donutty.prototype.set = function( prop, val ) {
 
         var values;
@@ -184,34 +201,43 @@
         if ( isDefined( prop ) && isDefined( val ) ) {
 
             this.state[ prop ] = val;
-
-        } else {
-
-            this.state.value = prop;
+            values = this.getDashValues();
+            this.animate( values.fill, values.full );
 
         }
-
-        values = this.getDashValues();
-        this.animate( values.fill, values.full );
 
         return this;
 
     };
 
-    donutty.prototype.setState = function( value, min, max ) {
+    /**
+     * set multiple state properties with an object
+     * @param  {object} newState a map of properties to set
+     * @return {object}          the donut instance
+     * @chainable
+     */
+    donutty.prototype.setState = function( newState ) {
 
         var values;
 
-        if ( isDefined( value ) ) {
-            this.state.value = value;
+        if ( isDefined( newState.value ) ) {
+            this.state.value = newState.value;
         }
 
-        if ( isDefined( min ) ) {
-            this.state.min = min;
+        if ( isDefined( newState.min ) ) {
+            this.state.min = newState.min;
         }
 
-        if ( isDefined( max ) ) {
-            this.state.max = max;
+        if ( isDefined( newState.max ) ) {
+            this.state.max = newState.max;
+        }
+
+        if ( isDefined( newState.bg ) ) {
+            this.state.bg = newState.bg;
+        }
+
+        if ( isDefined( newState.color ) ) {
+            this.state.color = newState.color;
         }
 
         values = this.getDashValues();
