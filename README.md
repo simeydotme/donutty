@@ -49,11 +49,8 @@ There's a couple of ways to configure **donutty** depending on how you prefer:
   <!-- this will create a donut chart with a mininum value
       of -50, maximum of 50 and a set value of 33 -->
 
-  <div id="donut"
-        data-donutty
-        data-min=-50
-        data-max=50
-        data-value=33></div>
+  <div id="donut" data-donutty data-min=-50 data-max=50 data-value=33>
+  </div>
   ```
 2. `js` initialisation
   This method uses a javascript accessor to initialise and configure **donutty**'s options
