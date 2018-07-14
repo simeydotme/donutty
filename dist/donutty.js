@@ -1,3 +1,11 @@
+/**
+ * donutty // Create SVG donut charts with Javascript
+ * @author simeydotme <simey.me@gmail.com>
+ * @version 1.0.3
+ * @license ISC
+ * @link http://simey.me
+ * @preserve
+ */
 
 (function( doc, win ) {
 
@@ -169,7 +177,7 @@
 
     };
 
-    donutty.prototype.setValue = function( prop, val ) {
+    donutty.prototype.set = function( prop, val ) {
 
         var values;
 

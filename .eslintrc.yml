@@ -10,7 +10,7 @@ env:
     node: true
 
 parserOptions:
-    ecmaVersion: 5
+    ecmaVersion: 2015
 
 rules:
     indent:
