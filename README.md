@@ -5,17 +5,17 @@ Simple (but powerful) SVG donut charts with JavaScript (or jQuery)
 
 ## installation
 
-in your terminal;
+in your terminal, use one of the following;
 
-```bsah
+```shell
 yarn add donutty
+```
 
-# or
-
+```shell
 npm install donutty
+```
 
-# or
-
+```shell
 bower install donutty
 ```
 
@@ -42,31 +42,35 @@ use the `dist/donutty.js` file as the entry point.
 ## configuration
 
 There's a couple of ways to configure **donutty** depending on how you prefer:
-1. `html` data attributes  
-  This way uses data attributes in the `DOM` (**html**) to configure the options of donutty  
-  
+1. `html` data attributes
+  This way uses data attributes in the `DOM` (**html**) to configure the options of donutty
+
   ```html
-  <!-- this will create a donut chart with a mininum value 
+  <!-- this will create a donut chart with a mininum value
       of -50, maximum of 50 and a set value of 33 -->
-       
-  <div id="donut" data-donutty data-min=-50 data-max=50 data-value=33><div>
+
+  <div id="donut"
+        data-donutty
+        data-min=-50
+        data-max=50
+        data-value=33></div>
   ```
-2. `js` initialisation  
-  This method uses a javascript accessor to initialise and configure **donutty**'s options  
-  
+2. `js` initialisation
+  This method uses a javascript accessor to initialise and configure **donutty**'s options
+
   ```js
   // this will create a donut chart on #donut with a minimum value
   // of -50, maximum of 50 and a set value of 11
-  
+
   // jquery
   var donut = $("#donut").donutty({ min: -50, max: 50, value: 11 });
-  
+
   // or vanilla
   var donut = new Donutty( document.getElementById( "donut" ), { min: -50, max: 50, value: 11 });
   ```
-  
+
 ## options
-  
+
 | option | type | default | description |
 | -----: | :--- | :------ | :---------- |
 | **`min`** | `Number` | `0` | the minimum value the donut can be |
@@ -81,7 +85,7 @@ There's a couple of ways to configure **donutty** depending on how you prefer:
 | **`color`** | `String` | `"#7E57C2"` | color of the actual donut |
 | **`transition`** | `String` | `[(1) see below](#default-transition)` | the default animation which runs on the donut |
 
-##### (1) default transition 
+##### (1) default transition
 `"all 1.2s cubic-bezier(0.57, 0.13, 0.18, 0.98)"`
 
 
