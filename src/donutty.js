@@ -48,6 +48,8 @@
 
         _this.init();
 
+        return _this;
+
     };
 
     donutty.prototype.init = function() {
@@ -57,6 +59,8 @@
         this.state.value = this.options.value;
 
         this.createFragments();
+
+        return this;
 
     };
 
@@ -108,6 +112,8 @@
         this.$wrapper.appendChild( this.$html );
 
         this.animate( values.fill, values.full );
+
+        return this;
 
     };
 
@@ -180,6 +186,8 @@
         values = this.getDashValues();
         this.animate( values.fill, values.full );
 
+        return this;
+
     };
 
     donutty.prototype.setState = function( value, min, max ) {
@@ -200,6 +208,8 @@
 
         values = this.getDashValues();
         this.animate( values.fill, values.full );
+
+        return this;
 
     };
 
