@@ -1,0 +1,28 @@
+{
+  "name": "donutty",
+  "description": "Create SVG donut charts with Javascript",
+  "main": "src/donutty.js",
+  "authors": [
+    "Simon Goellner <simey.me@gmail.com>"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "js",
+    "javascript",
+    "donut",
+    "donutty",
+    "chart",
+    "graph",
+    "doughnut",
+    "doughnutty",
+    "circle"
+  ],
+  "homepage": "http://simey.me",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -2,7 +2,7 @@
     "name": "donutty",
     "version": "1.0.1",
     "description": "Create SVG donut charts with Javascript",
-    "main": "donutty.js",
+    "main": "src/donutty.js",
     "scripts": {
         "lint": "gulp lint",
         "build": "gulp",
