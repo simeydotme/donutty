@@ -1,16 +1,16 @@
 // ie9+
 
-( function() {
+( function( Donutty ) {
 
-  var $donuts = document.querySelectorAll( "[data-donutty]" );
+    var $donuts = document.querySelectorAll( "[data-donutty]" );
 
-  Array.prototype.forEach.call( $donuts , function( $el ) {
+    Array.prototype.forEach.call( $donuts , function( $el ) {
 
-  	var options = JSON.parse( JSON.stringify( $el.dataset ) ),
-    	instance = new Donutty( $el, options );
+        var options = JSON.parse( JSON.stringify( $el.dataset ) ),
+            instance = new Donutty( $el, options );
 
-    $el.dataset.donutty = instance;
+        $el.dataset.donutty = instance;
 
-  });
+    });
 
-}());
+}( Donutty ));

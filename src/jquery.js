@@ -1,24 +1,24 @@
-// jquery
+// jquery constructor
 
-( function() {
+( function( Donutty, $ ) {
 
-  if ( typeof window.$ !== "undefined" ) {
+    if ( typeof window.$ !== "undefined" ) {
 
-    $.fn.donutty = function( options ) {
+        $.fn.donutty = function( options ) {
 
-      return $( this ).each( function( k, el ) {
+            return $( this ).each( function( k, el ) {
 
-				var $el = $( el ),
-        		instance = new Donutty( el, $.extend( {}, $el.data(), options ) );
+                var $el = $( el ),
+                    instance = new Donutty( el, $.extend( {}, $el.data(), options ) );
 
-        $el.data( "donutty", instance );
+                $el.data( "donutty", instance );
 
-      });
+            });
 
-    };
+        };
 
-    $( "[data-donutty]" ).donutty();
+        $( "[data-donutty]" ).donutty();
 
-  }
+    }
 
-}());
+}( Donutty, jQuery ));

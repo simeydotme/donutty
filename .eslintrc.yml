@@ -1,0 +1,27 @@
+extends: 'eslint:recommended'
+
+globals:
+    Donutty: true
+    jQuery: true
+
+env:
+    browser: true
+    commonjs: true
+    node: true
+
+parserOptions:
+    ecmaVersion: 5
+
+rules:
+    indent:
+        - error
+        - 4
+    linebreak-style:
+        - error
+        - unix
+    quotes:
+        - error
+        - double
+    semi:
+        - error
+        - always
