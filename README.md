@@ -81,8 +81,8 @@ There's a couple of ways to configure **donutty** depending on how you prefer:
 | **`radius`** | `Number` | `50` | the radius of the donut (size, essentially, but can be made auto with `css`) |
 | **`thickness`** | `Number` | `10` | how thick the actual donut track is |
 | **`padding`** | `Number` | `4` | padding between the background (track) and the donut |
-| **`bg`** | `String` | `"#ECEFF1"` | the color of the background (track) |
-| **`color`** | `String` | `"#7E57C2"` | color of the actual donut |
+| **`bg`** | `String` | `"rgba(70, 130, 180, 0.15)"` | the color of the background (track) |
+| **`color`** | `String` | `"mediumslateblue"` | color of the actual donut |
 | **`transition`** | `String` | `[(1) see below](#default-transition)` | the default animation which runs on the donut |
 
 ##### (1) default transition
