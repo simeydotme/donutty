@@ -1,7 +1,7 @@
 /**
  * donutty // Create SVG donut charts with Javascript
  * @author simeydotme <simey.me@gmail.com>
- * @version 1.1.0
+ * @version 1.1.2
  * @license ISC
  * @link http://simey.me
  * @preserve
@@ -253,14 +253,18 @@
 
 ( function( Donutty ) {
 
-    var $donuts = document.querySelectorAll( "[data-donutty]" );
+    document.addEventListener("DOMContentLoaded", function() {
 
-    Array.prototype.forEach.call( $donuts , function( $el ) {
+        var $donuts = document.querySelectorAll( "[data-donutty]" );
 
-        var options = JSON.parse( JSON.stringify( $el.dataset ) ),
-            instance = new Donutty( $el, options );
+        Array.prototype.forEach.call( $donuts , function( $el ) {
 
-        $el.dataset.donutty = instance;
+            var options = JSON.parse( JSON.stringify( $el.dataset ) ),
+                instance = new Donutty( $el, options );
+
+            $el.dataset.donutty = instance;
+
+        });
 
     });
 

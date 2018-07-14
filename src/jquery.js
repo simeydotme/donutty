@@ -4,20 +4,28 @@
 
     if ( typeof window.$ !== "undefined" ) {
 
-        $.fn.donutty = function( options ) {
+        $( function() {
 
-            return $( this ).each( function( k, el ) {
+            $.fn.donutty = function( options ) {
 
-                var $el = $( el ),
-                    instance = new Donutty( el, $.extend( {}, $el.data(), options ) );
+                return $( this ).each( function( k, el ) {
 
-                $el.data( "donutty", instance );
+                    var $el = $( el ),
+                        instance = new Donutty( el, $.extend( {}, $el.data(), options ) );
 
-            });
+                    $el.data( "donutty", instance );
 
-        };
+                });
 
-        $( "[data-donutty]" ).donutty();
+            };
+
+            $( "[data-donutty]" ).donutty();
+
+        });
+
+    } else {
+
+        console.warn( "Can't find jQuery to attach Donutty" );
 
     }
 
