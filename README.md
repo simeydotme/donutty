@@ -42,7 +42,7 @@ use the `dist/donutty.js` file as the entry point.
 ## configuration
 
 There's a couple of ways to configure **donutty** depending on how you prefer:
-1. `html` data attributes
+1. `html` data attributes  
   This way uses data attributes in the `DOM` (**html**) to configure the options of donutty
 
   ```html
@@ -52,7 +52,7 @@ There's a couple of ways to configure **donutty** depending on how you prefer:
   <div id="donut" data-donutty data-min=-50 data-max=50 data-value=33>
   </div>
   ```
-2. `js` initialisation
+2. `js` initialisation  
   This method uses a javascript accessor to initialise and configure **donutty**'s options
 
   ```js
