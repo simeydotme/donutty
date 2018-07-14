@@ -1,7 +1,8 @@
 # donutty 🍩📉
 Simple (but powerful) SVG donut charts with JavaScript (or jQuery)
 
-![Example of almost-default configuration](../master/docs/images/donutty-updated.gif)
+![Example of almost-default configuration](../master/docs/images/donutty-updated.gif)  
+[see a bunch of examples on CodePen](https://codepen.io/simeydotme/pen/rrOEmO/)
 
 ## installation
 
@@ -83,7 +84,8 @@ There's a couple of ways to configure **donutty** depending on how you prefer:
 | **`transition`** | `String` | [¹ see below](#1-default-transition) | the default animation which runs on the donut |
 
 ##### 1 default transition
-`"all 1.2s cubic-bezier(0.57, 0.13, 0.18, 0.98)"`
+`"all 1.2s cubic-bezier(0.57, 0.13, 0.18, 0.98)"`  
+[Check out all the options on CodePen](https://codepen.io/simeydotme/pen/rrOEmO/)
 
 
 ## methods
