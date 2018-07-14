@@ -105,8 +105,8 @@ chart.setState({ min: 100, max: 300, value: 300, color: "", bg: "aquamarine", co
 
 | method | arguments | arg types | description |
 | -----: | :-------- | :-------- | :---------- |
-| `set` | `[ property, value ]` | `[ String, Number ]` | Set a property's value (`min`, `max`, `value`)
-| `setState` | `[ newState ]` | `[ Object ]` | Set the values for multiple properties (`min`, `max`, `value`, `bg`, `color`)
+| `set` | `property, value` | `String, Number` | Set a property's value (`min`, `max`, `value`)
+| `setState` | `newState` | `Object` | Set the values for multiple properties (`min`, `max`, `value`, `bg`, `color`)
 
 ---
 
