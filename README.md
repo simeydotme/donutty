@@ -81,11 +81,25 @@ There's a couple of ways to configure **donutty** depending on how you prefer:
 | **`padding`** | `Number` | `4` | padding between the background (track) and the donut |
 | **`bg`** | `String` | `"rgba(70, 130, 180, 0.15)"` | the color of the background (track) |
 | **`color`** | `String` | `"mediumslateblue"` | color of the actual donut |
-| **`transition`** | `String` | [¹ see below](#1-default-transition) | the default animation which runs on the donut |
+| **`transition`** | `String` | [¹ see below](#1-default-transition) | the animation which runs on the donut |
+| **`text`** | `Function` | `false` [² see below](#2-text-function) | a function for returning a text/html `String` |
 
 ##### 1 default transition
 `"all 1.2s cubic-bezier(0.57, 0.13, 0.18, 0.98)"`  
 [Check out all the options on CodePen](https://codepen.io/simeydotme/pen/rrOEmO/)
+
+##### 2 text function
+`false`  
+You may pass a `Function` to the `text` option which returns a valid `String`. this
+will append a `html` string which can be used to visualise the value:
+```js
+    {
+        text: function( state ) {
+            return ( state.value / ( state.max - state.min ) * 100 ) + "%";
+            // return the percentage of the donut
+        }
+    }
+```
 
 
 ## methods

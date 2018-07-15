@@ -1,6 +1,9 @@
 
 (function( doc, win ) {
 
+    var donutty,
+        namespace = "http://www.w3.org/2000/svg";
+
     function isDefined( input ) {
         return typeof input !== "undefined";
     }
@@ -13,46 +16,64 @@
         return isDefined( input ) && ( input === true || input === "true" );
     }
 
-    var donutty = win.Donutty = function( el, options ) {
-
-        var _this = this;
+    donutty = win.Donutty = function( el, options ) {
 
         if ( el && typeof el === "string" ) {
 
-            _this.$wrapper = doc.querySelectorAll( el )[0];
+            this.$wrapper = doc.querySelectorAll( el )[0];
 
         } else if ( el instanceof window.HTMLElement ) {
 
-            _this.$wrapper = el;
+            this.$wrapper = el;
 
         } else {
 
-            _this.$wrapper = doc.body;
+            this.$wrapper = doc.body;
             options = el;
 
         }
 
-        _this.state =               {};
-        _this.options =             options || {};
-        _this.options.min =         isDefined( _this.options.min ) ? float( _this.options.min ) : 0;
-        _this.options.max =         isDefined( _this.options.max ) ? float( _this.options.max ) : 100;
-        _this.options.value =       isDefined( _this.options.value ) ? float( _this.options.value ) : 50;
-        _this.options.round =       isDefined( _this.options.round ) ? truth( _this.options.round ) : true;
-        _this.options.circle =      isDefined( _this.options.circle ) ? truth( _this.options.circle ) : true;
-        _this.options.padding =     isDefined( _this.options.padding ) ? float( _this.options.padding ) : 4;
-        _this.options.radius =      float( _this.options.radius ) || 50;
-        _this.options.thickness =   float( _this.options.thickness ) || 10;
-        _this.options.bg =          _this.options.bg || "rgba(70, 130, 180, 0.15)";
-        _this.options.color =       _this.options.color || "mediumslateblue";
-        _this.options.transition =  _this.options.transition || "all 1.2s cubic-bezier(0.57, 0.13, 0.18, 0.98)";
+        this.state =               {};
+        this.options =             options || {};
+        this.options.min =         isDefined( this.options.min ) ? float( this.options.min ) : 0;
+        this.options.max =         isDefined( this.options.max ) ? float( this.options.max ) : 100;
+        this.options.value =       isDefined( this.options.value ) ? float( this.options.value ) : 50;
+        this.options.round =       isDefined( this.options.round ) ? truth( this.options.round ) : true;
+        this.options.circle =      isDefined( this.options.circle ) ? truth( this.options.circle ) : true;
+        this.options.padding =     isDefined( this.options.padding ) ? float( this.options.padding ) : 4;
+        this.options.radius =      float( this.options.radius ) || 50;
+        this.options.thickness =   float( this.options.thickness ) || 10;
+        this.options.bg =          this.options.bg || "rgba(70, 130, 180, 0.15)";
+        this.options.color =       this.options.color || "mediumslateblue";
+        this.options.transition =  this.options.transition || "all 1.2s cubic-bezier(0.57, 0.13, 0.18, 0.98)";
+        this.options.text =        false;
 
-        _this.init();
+        this.init();
 
-        return _this;
+        return this;
 
     };
 
     donutty.prototype.init = function() {
+
+        var values;
+
+        // create the state object from the options,
+        // and then get the dash values for use in element creation
+        this.createState();
+        values = this.getDashValues();
+
+        this.createSvg();
+        this.createBg( values );
+        this.createDonut( values );
+        this.createText();
+        this.insertFragments( values );
+
+        return this;
+
+    };
+
+    donutty.prototype.createState = function() {
 
         this.state.min = this.options.min;
         this.state.max = this.options.max;
@@ -60,30 +81,28 @@
         this.state.bg = this.options.bg;
         this.state.color = this.options.color;
 
-        this.createFragments();
+        return this;
+
+    };
+
+    donutty.prototype.createText = function() {
+
+        if ( typeof this.options.text === "function" ) {
+
+            this.$text = doc.createElement( "span" );
+            this.$text.classList.add( "donut-text" );
+            this.$text.style.opacity = 0;
+            this.updateText();
+
+        }
 
         return this;
 
     };
 
-    donutty.prototype.createFragments = function() {
+    donutty.prototype.createBg = function( values ) {
 
-        var namespace = "http://www.w3.org/2000/svg",
-            viewbox = this.options.radius * 2 + this.options.thickness + ( this.options.padding * 2 ),
-            values = this.getDashValues(),
-            rotateExtra = this.options.round ? this.options.thickness / 3 : 0,
-            rotate = this.options.circle ? 90 + rotateExtra : -225;
-
-        this.$html = doc.createDocumentFragment();
-        this.$svg = doc.createElementNS( namespace, "svg" );
         this.$bg = doc.createElementNS( namespace, "circle" );
-        this.$donut = doc.createElementNS( namespace, "circle" );
-
-        this.$svg.setAttribute( "xmlns", namespace );
-        this.$svg.setAttribute( "viewbox", "0 0 " + viewbox + " " + viewbox );
-        this.$svg.setAttribute( "transform", "rotate( " + rotate +" )" );
-        this.$svg.style.width = viewbox;
-        this.$svg.style.height = viewbox;
 
         this.$bg.setAttribute( "cx", "50%" );
         this.$bg.setAttribute( "cy", "50%" );
@@ -92,6 +111,19 @@
         this.$bg.setAttribute( "stroke", this.state.bg );
         this.$bg.setAttribute( "stroke-width", this.options.thickness + this.options.padding );
         this.$bg.setAttribute( "stroke-dasharray", values.full * values.multiplier );
+        this.$bg.classList.add( "donut-bg" );
+
+        if ( this.options.round ) {
+            this.$bg.setAttribute( "stroke-linecap", "round" );
+        }
+
+        return this;
+
+    };
+
+    donutty.prototype.createDonut = function( values ) {
+
+        this.$donut = doc.createElementNS( namespace, "circle" );
 
         this.$donut.setAttribute( "fill", "transparent" );
         this.$donut.setAttribute( "cx", "50%" );
@@ -101,21 +133,49 @@
         this.$donut.setAttribute( "stroke-width", this.options.thickness );
         this.$donut.setAttribute( "stroke-dashoffset", values.full );
         this.$donut.setAttribute( "stroke-dasharray", values.full );
+        this.$donut.classList.add( "donut-fill" );
         this.$donut.style.opacity = 0;
 
         if ( this.options.round ) {
-            this.$bg.setAttribute( "stroke-linecap", "round" );
             this.$donut.setAttribute( "stroke-linecap", "round" );
         }
 
-        this.$svg.appendChild( this.$bg );
-        this.$svg.appendChild( this.$donut );
-        this.$html.appendChild( this.$svg );
-        this.$wrapper.appendChild( this.$html );
+        return this;
 
-        this.animate( values.fill, values.full );
+    };
+
+    donutty.prototype.createSvg = function() {
+
+        var viewbox = this.options.radius * 2 + this.options.thickness + ( this.options.padding * 2 ),
+            rotateExtra = this.options.round ? this.options.thickness / 3 : 0,
+            rotate = this.options.circle ? 90 + rotateExtra : -225;
+
+        this.$html = doc.createDocumentFragment();
+        this.$svg = doc.createElementNS( namespace, "svg" );
+
+        this.$svg.setAttribute( "xmlns", namespace );
+        this.$svg.setAttribute( "viewbox", "0 0 " + viewbox + " " + viewbox );
+        this.$svg.setAttribute( "transform", "rotate( " + rotate +" )" );
+        this.$svg.classList.add( "donut" );
+        this.$svg.style.width = viewbox;
+        this.$svg.style.height = viewbox;
 
         return this;
+
+    };
+
+    donutty.prototype.insertFragments = function( values ) {
+
+        this.$svg.appendChild( this.$donut );
+        this.$svg.appendChild( this.$bg );
+        this.$html.appendChild( this.$svg );
+
+        if ( this.$text ) {
+            this.$html.appendChild( this.$text );
+        }
+
+        this.$wrapper.appendChild( this.$html );
+        this.animate( values.fill, values.full );
 
     };
 
@@ -164,18 +224,40 @@
         // the transition
         _this.$bg.style.transition = this.options.transition;
         _this.$donut.style.transition = this.options.transition;
+        _this.$text.style.transition = this.options.transition;
 
         // use a short timeout (~60fps) to simulate a new
         // animation frame (not using rAF due to ie9 problems)
         window.setTimeout( function() {
 
+            _this.$bg.setAttribute( "stroke", _this.state.bg );
+            _this.$bg.style.opacity = 1;
+
             _this.$donut.setAttribute( "stroke-dashoffset", fill );
             _this.$donut.setAttribute( "stroke-dasharray", full );
-            _this.$bg.setAttribute( "stroke", _this.state.bg );
             _this.$donut.setAttribute( "stroke", _this.state.color );
             _this.$donut.style.opacity = 1;
 
+            _this.$text.style.opacity = 1;
+
         }, 16 );
+
+    };
+
+    /**
+     * use the current state to set the text inside
+     * the text element (only if option is provided);
+     * @return {object} the donut instance
+     */
+    donutty.prototype.updateText = function() {
+
+        if ( typeof this.options.text === "function" ) {
+
+            this.$text.innerHTML = this.options.text( this.state );
+
+        }
+
+        return this;
 
     };
 
@@ -194,6 +276,7 @@
 
             this.state[ prop ] = val;
             values = this.getDashValues();
+            this.updateText();
             this.animate( values.fill, values.full );
 
         }
@@ -233,6 +316,7 @@
         }
 
         values = this.getDashValues();
+        this.updateText();
         this.animate( values.fill, values.full );
 
         return this;
