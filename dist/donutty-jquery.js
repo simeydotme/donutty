@@ -41,6 +41,18 @@
 
         }
 
+        if ( !this.$wrapper ) {
+
+            return this;
+
+        }
+
+        if (options === null) {
+
+            options = this.getOptionsFromTag();
+
+        }
+
         this.state =               {};
         this.options =             options || {};
         this.options.min =         isDefined( this.options.min ) ? float( this.options.min ) : 0;
@@ -54,7 +66,7 @@
         this.options.bg =          this.options.bg || "rgba(70, 130, 180, 0.15)";
         this.options.color =       this.options.color || "mediumslateblue";
         this.options.transition =  this.options.transition || "all 1.2s cubic-bezier(0.57, 0.13, 0.18, 0.98)";
-        this.options.text =        false;
+        this.options.text =        isDefined( this.options.text ) ? this.options.text : false;
 
         this.init();
 
@@ -62,7 +74,15 @@
 
     };
 
+    donutty.prototype.getOptionsFromTag = function() {
+
+        return JSON.parse(JSON.stringify(this.$wrapper.dataset));
+
+    };
+
     donutty.prototype.init = function() {
+
+        this.$wrapper.donutty = this;
 
         var values;
 
@@ -232,7 +252,9 @@
         // the transition
         _this.$bg.style.transition = this.options.transition;
         _this.$donut.style.transition = this.options.transition;
-        _this.$text.style.transition = this.options.transition;
+        if ( _this.$text ) {
+            _this.$text.style.transition = this.options.transition;
+        }
 
         // use a short timeout (~60fps) to simulate a new
         // animation frame (not using rAF due to ie9 problems)
@@ -246,7 +268,9 @@
             _this.$donut.setAttribute( "stroke", _this.state.color );
             _this.$donut.style.opacity = 1;
 
-            _this.$text.style.opacity = 1;
+            if ( _this.$text ) {
+                _this.$text.style.opacity = 1;
+            }
 
         }, 16 );
 
@@ -341,14 +365,11 @@
 
         $( function() {
 
-            $.fn.donutty = function( options ) {
+            $.fn.donutty = function() {
 
-                return $( this ).each( function( k, el ) {
+                return $( this ).each( function() {
 
-                    var $el = $( el ),
-                        instance = new Donutty( el, $.extend( {}, $el.data(), options ) );
-
-                    $el.data( "donutty", instance );
+                    new Donutty( this, null );
 
                 });
 
