@@ -47,7 +47,7 @@
 
         }
 
-        if (options === null) {
+        if ( !isDefined( options ) ) {
 
             options = this.getOptionsFromTag();
 
@@ -194,8 +194,8 @@
 
     donutty.prototype.insertFragments = function( values ) {
 
-        this.$svg.appendChild( this.$donut );
         this.$svg.appendChild( this.$bg );
+        this.$svg.appendChild( this.$donut );
         this.$html.appendChild( this.$svg );
 
         if ( this.$text ) {
@@ -368,14 +368,14 @@
 
             Array.prototype.forEach.call( $donuts , function( $el ) {
 
-                new Donutty( $el, null );
+                new Donutty( $el );
 
             });
 
         };
 
 
-    if (  doc.readyState === "complete" || ( doc.readyState !== "loading" && !doc.documentElement.doScroll ) ) {
+    if ( doc.readyState === "complete" || ( doc.readyState !== "loading" && !doc.documentElement.doScroll ) ) {
         initialise();
     } else {
         doc.addEventListener("DOMContentLoaded", initialise );

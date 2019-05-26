@@ -47,7 +47,7 @@
 
         }
 
-        if (options === null) {
+        if ( !isDefined( options ) ) {
 
             options = this.getOptionsFromTag();
 
@@ -194,8 +194,8 @@
 
     donutty.prototype.insertFragments = function( values ) {
 
-        this.$svg.appendChild( this.$donut );
         this.$svg.appendChild( this.$bg );
+        this.$svg.appendChild( this.$donut );
         this.$html.appendChild( this.$svg );
 
         if ( this.$text ) {
@@ -365,11 +365,11 @@
 
         $( function() {
 
-            $.fn.donutty = function() {
+            $.fn.donutty = function( options ) {
 
                 return $( this ).each( function() {
 
-                    new Donutty( this, null );
+                    new Donutty( this, options );
 
                 });
 

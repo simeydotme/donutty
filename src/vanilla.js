@@ -9,14 +9,14 @@
 
             Array.prototype.forEach.call( $donuts , function( $el ) {
 
-                new Donutty( $el, null );
+                new Donutty( $el );
 
             });
 
         };
 
 
-    if (  doc.readyState === "complete" || ( doc.readyState !== "loading" && !doc.documentElement.doScroll ) ) {
+    if ( doc.readyState === "complete" || ( doc.readyState !== "loading" && !doc.documentElement.doScroll ) ) {
         initialise();
     } else {
         doc.addEventListener("DOMContentLoaded", initialise );

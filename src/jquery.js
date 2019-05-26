@@ -6,11 +6,11 @@
 
         $( function() {
 
-            $.fn.donutty = function() {
+            $.fn.donutty = function( options ) {
 
                 return $( this ).each( function() {
 
-                    new Donutty( this, null );
+                    new Donutty( this, options );
 
                 });
 
