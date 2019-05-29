@@ -8,12 +8,9 @@
 
             $.fn.donutty = function( options ) {
 
-                return $( this ).each( function( k, el ) {
+                return $( this ).each( function() {
 
-                    var $el = $( el ),
-                        instance = new Donutty( el, $.extend( {}, $el.data(), options ) );
-
-                    $el.data( "donutty", instance );
+                    new Donutty( this, options );
 
                 });
 
