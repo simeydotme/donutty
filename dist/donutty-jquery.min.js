@@ -1,7 +1,7 @@
 /**
  * donutty // Create SVG donut charts with Javascript
  * @author simeydotme <simey.me@gmail.com>
- * @version 1.2.0
+ * @version 1.2.1
  * @license ISC
  * @link http://simey.me
  * @preserve
