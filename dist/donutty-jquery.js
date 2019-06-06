@@ -185,8 +185,8 @@
         this.$svg.setAttribute( "viewbox", "0 0 " + viewbox + " " + viewbox );
         this.$svg.setAttribute( "transform", "rotate( " + rotate +" )" );
         this.$svg.classList.add( "donut" );
-        this.$svg.style.width = viewbox;
-        this.$svg.style.height = viewbox;
+        this.$svg.style.width = viewbox + "px";
+        this.$svg.style.height = viewbox + "px";
 
         return this;
 
