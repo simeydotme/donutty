@@ -21,7 +21,7 @@
     }
 
     function truth( input ) {
-        return isDefined( input ) && ( input === true || input === "true" );
+        return isDefined( input ) && ( input === true || input === "true" || input === "1"  || input === 1 );
     }
 
     donutty = win.Donutty = function( el, options ) {
