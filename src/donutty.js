@@ -110,7 +110,7 @@
         if ( typeof this.options.text === "function" ) {
 
             this.$text = doc.createElement( "span" );
-            this.$text.classList.add( "donut-text" );
+            this.$text.setAttribute( "class", "donut-text" );
             this.$text.style.opacity = 0;
             this.updateText();
 
@@ -131,7 +131,7 @@
         this.$bg.setAttribute( "stroke", this.state.bg );
         this.$bg.setAttribute( "stroke-width", this.options.thickness + this.options.padding );
         this.$bg.setAttribute( "stroke-dasharray", values.full * values.multiplier );
-        this.$bg.classList.add( "donut-bg" );
+        this.$bg.setAttribute( "class", "donut-bg" );
 
         if ( this.options.round ) {
             this.$bg.setAttribute( "stroke-linecap", "round" );
@@ -153,7 +153,7 @@
         this.$donut.setAttribute( "stroke-width", this.options.thickness );
         this.$donut.setAttribute( "stroke-dashoffset", values.full );
         this.$donut.setAttribute( "stroke-dasharray", values.full );
-        this.$donut.classList.add( "donut-fill" );
+        this.$donut.setAttribute( "class", "donut-fill" );
         this.$donut.style.opacity = 0;
 
         if ( this.options.round ) {
@@ -176,9 +176,8 @@
         this.$svg.setAttribute( "xmlns", namespace );
         this.$svg.setAttribute( "viewbox", "0 0 " + viewbox + " " + viewbox );
         this.$svg.setAttribute( "transform", "rotate( " + rotate +" )" );
-        this.$svg.classList.add( "donut" );
-        this.$svg.style.width = viewbox + "px";
-        this.$svg.style.height = viewbox + "px";
+        this.$svg.setAttribute( "preserveAspectRatio", "xMidYMid meet" );
+        this.$svg.setAttribute( "class", "donut" );
 
         return this;
 
@@ -195,6 +194,24 @@
         }
 
         this.$wrapper.appendChild( this.$html );
+
+        // because of a strange bug in browsers not updating
+        // the "preserveAspectRatio" setting when applied programmatically,
+        // we need to essentially delete the DOM fragment, and then
+        // set the innerHTML of the parent so that it updates in browser.
+        this.$wrapper.innerHTML = this.$wrapper.innerHTML;
+
+        // and because we just destroyed the DOM fragment and all
+        // the references to it, we now set all those references again.
+        this.$svg = this.$wrapper.querySelector(".donut");
+        this.$bg = this.$wrapper.querySelector(".donut-bg");
+        this.$donut = this.$wrapper.querySelector(".donut-fill");
+        if ( this.$text ) {
+            this.$text = this.$wrapper.querySelector(".donut-text");
+        }
+
+        // now the references are re-set, we can go 
+        // ahead and animate the element again.
         this.animate( values.fill, values.full );
 
     };
@@ -222,7 +239,6 @@
             // then the circle would look complete if it is actually
             // only ~97% complete, this is because the linecaps
             // overhang the stroke.
-
             absoluteFilled = this.options.thickness;
 
         }

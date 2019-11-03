@@ -1,0 +1,30 @@
+
+
+body {
+    color: #d6eaff;
+    background: #202125;
+    padding: 0;
+    margin: 0;
+}
+body>.container {
+    position: relative;
+    margin: 10px;
+}
+body>.container:after {
+    content:"";
+    width: 1px;
+    height:100%;
+    background: red;
+    position: absolute;
+    left: 50%;
+    top: 0;
+}
+body>.container:before {
+    content:"";
+    width: 100%;
+    height: 1px;
+    background: red;
+    position: absolute;
+    left: 0;
+    top: 50%;
+}

@@ -101,7 +101,6 @@ will append a `html` string which can be used to visualise the value:
     }
 ```
 
-
 ## methods
 There are some methods available for updating/changing values on the
 donut chart after it has been created. These are accessible by creating a reference
@@ -123,6 +122,11 @@ chart.setState({ min: 100, max: 300, value: 300, color: "", bg: "aquamarine", co
 | -----: | :-------- | :-------- | :---------- |
 | `set` | `property, value` | `String, Number` | Set a property's value (`min`, `max`, `value`)
 | `setState` | `newState` | `Object` | Set the values for multiple properties (`min`, `max`, `value`, `bg`, `color`)
+
+## notes
+As donutty will be responsive and grow to the width of the container,
+it may be necessary to add `overflow: hidden;` to the `[data-donutty]` wrapper
+element so that it doesn't overflow the page due to transform-rotation.
 
 ---
 

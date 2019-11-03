@@ -1,15 +1,15 @@
+"use strict";
 
-var gulp = require( "gulp" ),
-    concat = require( "gulp-concat" ),
-    eslint = require( "gulp-eslint" ),
-    header = require( "gulp-header" ),
-    rename = require( "gulp-rename" ),
-    uglify = require( "gulp-uglify" ),
-    pkg = require( "./package.json" ),
-    uglifyOpts = { output: { comments: /(^!|@preserve)/i } },
-    banner;
+const gulp = require( "gulp" );
+const concat = require( "gulp-concat" );
+const eslint = require( "gulp-eslint" );
+const header = require( "gulp-header" );
+const rename = require( "gulp-rename" );
+const uglify = require( "gulp-uglify" );
+const pkg = require( "./package.json" );
+const uglifyOpts = { output: { comments: /(^!|@preserve)/i } };
 
-banner = `/**
+const banner = `/**
  * ${ pkg.name } // ${ pkg.description }
  * @author ${ pkg.author.name } <${ pkg.author.email }>
  * @version ${ pkg.version }
@@ -19,16 +19,17 @@ banner = `/**
  */
 `;
 
-gulp.task( "lint", function() {
+
+function lint() {
 
     return gulp.src([ "./src/*.js", "*.js" ])
         .pipe( eslint() )
         .pipe( eslint.format() )
         .pipe( eslint.failAfterError() );
 
-});
+}
 
-gulp.task( "vanilla", [ "lint" ], function() {
+function buildvanilla() {
 
     return gulp.src([ "./src/donutty.js", "./src/vanilla.js" ])
         .pipe( concat( "donutty.js" ) )
@@ -38,9 +39,9 @@ gulp.task( "vanilla", [ "lint" ], function() {
         .pipe( rename( "donutty.min.js" ) )
         .pipe( gulp.dest( "./dist" ) );
 
-});
+}
 
-gulp.task( "jquery", [ "lint" ], function() {
+function buildjquery() {
 
     return gulp.src([ "./src/donutty.js", "./src/jquery.js" ])
         .pipe( concat( "donutty-jquery.js" ) )
@@ -50,6 +51,14 @@ gulp.task( "jquery", [ "lint" ], function() {
         .pipe( rename( "donutty-jquery.min.js" ) )
         .pipe( gulp.dest( "./dist" ) );
 
-});
+}
 
-gulp.task( "default", [ "lint", "vanilla", "jquery" ]);
+const jquery = gulp.series( lint, buildjquery );
+const vanilla = gulp.series( lint, buildvanilla );
+const build = gulp.series( lint, buildjquery, buildvanilla );
+
+exports.lint = lint;
+exports.jquery = jquery;
+exports.vanilla = vanilla;
+exports.build = build;
+exports.default = build;
