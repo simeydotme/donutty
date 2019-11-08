@@ -2,7 +2,7 @@
 Simple (but powerful) SVG donut charts with JavaScript (or jQuery)
 
 ![Example of almost-default configuration](../master/docs/images/donutty-updated.gif)  
-see a [bunch of code examples](https://codepen.io/simeydotme/full/rrOEmO/) on CodePen or [play on the playground](https://codepen.io/simeydotme/pen/vYYjrqO)
+see a [bunch of code examples](https://codepen.io/simeydotme/pen/rrOEmO/) on CodePen or [play on the playground](https://codepen.io/simeydotme/full/vYYjrqO)
 
 ## installation
 
