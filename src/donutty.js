@@ -22,7 +22,7 @@
 
             this.$wrapper = doc.querySelectorAll( el )[0];
 
-        } else if ( el instanceof window.HTMLElement ) {
+        } else if ( doc.querySelector( `.${el.className}` ) ) {
 
             this.$wrapper = el;
 
@@ -210,7 +210,7 @@
             this.$text = this.$wrapper.querySelector(".donut-text");
         }
 
-        // now the references are re-set, we can go 
+        // now the references are re-set, we can go
         // ahead and animate the element again.
         this.animate( values.fill, values.full );
 
