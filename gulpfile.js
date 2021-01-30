@@ -9,8 +9,11 @@ const uglify = require( "gulp-uglify" );
 const pkg = require( "./package.json" );
 const uglifyOpts = { output: { comments: /(^!|@preserve)/i } };
 
+const date = new Date();
+
 const banner = `/**
- * ${ pkg.name } // ${ pkg.description }
+ * Donutty ~ ${ pkg.description }
+ * ${ date.getDate() }/${ date.getMonth() + 1 }/${ date.getFullYear() }
  * @author ${ pkg.author.name } <${ pkg.author.email }>
  * @version ${ pkg.version }
  * @license ${ pkg.license }

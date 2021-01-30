@@ -1,6 +1,6 @@
 {
     "name": "donutty",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "description": "Create SVG donut charts with Javascript",
     "main": "src/donutty.js",
     "scripts": {

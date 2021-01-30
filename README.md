@@ -82,14 +82,23 @@ There's a couple of ways to configure **donutty** depending on how you prefer:
 | **`bg`** | `String` | `"rgba(70, 130, 180, 0.15)"` | the color of the background (track) |
 | **`color`** | `String` | `"mediumslateblue"` | color of the actual donut |
 | **`transition`** | `String` | [¹ see below](#1-default-transition) | the animation which runs on the donut |
-| **`text`** | `Function` | `false` [² see below](#2-text-function) | a function for returning a text/html `String` |
-| **`dir`** | `String` | `""` | a `String` that can accept `"rtl"` for right-to-left modes [³ see below](#3-rtl-mode) |
+| **`dir`** | `String` | `""` | a `String` that can accept `"rtl"` for right-to-left modes [² see below](#2-rtl-mode) |
+| **`text`** | `Function` | `false` [³ see below](#3-text-function) | a function for returning a text/html `String` |
+| **`title`** | `Function/String` | `false` [⁴ see below](#4-accessibility) | a function for returning a title `String` |
+| **`desc`** | `Function/String` | `false` [⁴ see below](#4-accessibility) | a function for returning a description `String` |
 
 ##### 1 default transition
 `"all 1.2s cubic-bezier(0.57, 0.13, 0.18, 0.98)"`  
 [Check out all the options on CodePen](https://codepen.io/simeydotme/pen/rrOEmO/)
 
-##### 2 text function
+##### 2 rtl mode
+Donutty will first check the `dir` option passed in to itself. If it fails to find that
+option, the next thing it will do is look for the html attribute `dir="rtl"` on the
+donut container (element passed in as first parameter). And finally if no `"rtl"` is found
+it will check the `<html>` root element for `<html dir="rtl">`. If any are found, the donut
+will fill in the opposite direction.
+
+##### 3 text function
 `false`  
 You may pass a `Function` to the `text` option which returns a valid `String`. this
 will append a `html` string which can be used to visualise the value:
@@ -102,12 +111,24 @@ will append a `html` string which can be used to visualise the value:
     }
 ```
 
-##### 2 rtl mode
-donutty will first check the `dir` option passed in to itself. If it fails to find that
-option, the next thing it will do is look for the html attribute `dir="rtl"` on the
-donut container (element passed in as first parameter). And finally if no `"rtl"` is found
-it will check the `<html>` root element for `<html dir="rtl">`. If any are found, the donut
-will fill in the opposite direction.
+##### 4 accessibility
+A default string for `<title>` and `<desc>` will be added to the `<svg>` element. The values
+of these strings can be modified either as a static `String` or as a `Function` which returns
+a `String`. The `Function` will have a `( state )` argument available with the `value`, `min` and `max`.
+
+```js
+    {
+        title: function( state ) {
+            return "Donut Chart Graphic";
+            // return the title of the graphic
+        },
+        desc: function( state ) {
+            return "A donut chart ranging from " + state.min + " to " + 
+              state.max + " with a current value of " + state.value + ".";
+            // return the description of the graphic
+        }
+    }
+```
 
 ## methods
 There are some methods available for updating/changing values on the

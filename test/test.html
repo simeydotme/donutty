@@ -14,10 +14,24 @@
                 <div data-donutty  dir="rtl"></div>
             </div>
             <div class="wrapper">
-                <div data-donutty data-circle=false data-round=false 
-                    data-min=-50 data-max=50 data-value=25 
-                    data-radius=100 data-thickness=20 data-padding=-10
-                    data-color="#f281a9" data-bg="rgba(255,199,110,0.2)"></div>
+                <div id="test"></div>
+                <script>
+                    window.testDonut = new Donutty("#test", {
+                        circle: false ,
+                        round: false ,
+                        min: -50 ,
+                        max: 50 ,
+                        value: 25 ,
+                        radius: 100 ,
+                        thickness: 20 ,
+                        padding: -10 ,
+                        color: "#f281a9" ,
+                        bg: "rgba(255,199,110,0.2)",
+                        text: function(values) { return "text asdasd ¬ " + values.value },
+                        title: function(values) { return "title asdasd ¬ " + values.value },
+                        desc: function(values) { return "desc asdasd ¬ " + values.value }
+                    });
+                </script>
             </div>
         </div>
     </body>

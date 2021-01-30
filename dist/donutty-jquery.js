@@ -1,7 +1,8 @@
 /**
- * donutty // Create SVG donut charts with Javascript
+ * Donutty ~ Create SVG donut charts with Javascript
+ * 31/1/2021
  * @author simeydotme <simey.me@gmail.com>
- * @version 2.1.0
+ * @version 2.2.0
  * @license ISC
  * @link http://simey.me
  * @preserve
@@ -53,6 +54,7 @@
 
         }
 
+        this.id =                  Math.random().toString(36).substr(2, 5);
         this.state =               {};
         this.options =             options || {};
         this.options.min =         isDefined( this.options.min ) ? float( this.options.min ) : 0;
@@ -67,6 +69,8 @@
         this.options.color =       this.options.color || "mediumslateblue";
         this.options.transition =  this.options.transition || "all 1.2s cubic-bezier(0.57, 0.13, 0.18, 0.98)";
         this.options.text =        isDefined( this.options.text ) ? this.options.text : false;
+        this.options.title =       isDefined( this.options.title ) ? this.options.title : function() { return "Donut Chart Graphic"; };
+        this.options.desc =        isDefined( this.options.desc ) ? this.options.desc : function( v ) { return "A donut chart ranging from " + v.min + " to " + v.max + " with a current value of " + v.value + "."; };
         this.options.dir =         isDefined( this.options.dir ) ? this.options.dir : false;
 
         if ( !this.options.dir ) {
@@ -104,6 +108,7 @@
         this.createBg( values );
         this.createDonut( values );
         this.createText();
+        this.createAccessibility();
         this.insertFragments( values );
 
         return this;
@@ -132,6 +137,21 @@
             this.updateText();
 
         }
+
+        return this;
+
+    };
+
+    donutty.prototype.createAccessibility = function() {
+
+        this.$title = doc.createElementNS( namespace, "title" );
+        this.$title.setAttribute( "id", "chartTitle-" + this.id );
+        this.$title.setAttribute( "class", "donut-title" );
+
+        this.$desc = doc.createElementNS( namespace, "desc" );
+        this.$desc.setAttribute( "id", "chartDesc-" + this.id );
+        this.$desc.setAttribute( "class", "donut-desc" );
+        this.updateAccessibility();
 
         return this;
 
@@ -200,6 +220,9 @@
         this.$svg.setAttribute( "transform", "scale( " + scale + " ) rotate( " + rotate + " )" );
         this.$svg.setAttribute( "preserveAspectRatio", "xMidYMid meet" );
         this.$svg.setAttribute( "class", "donut" );
+        this.$svg.setAttribute( "role", "img" );
+        this.$svg.setAttribute( "aria-labelledby", "chartTitle-" + this.id + " chartDesc-" + this.id );
+        this.$svg.setAttribute( "role", "img" );
 
         return this;
 
@@ -207,6 +230,8 @@
 
     donutty.prototype.insertFragments = function( values ) {
 
+        this.$svg.appendChild( this.$title );
+        this.$svg.appendChild( this.$desc );
         this.$svg.appendChild( this.$bg );
         this.$svg.appendChild( this.$donut );
         this.$html.appendChild( this.$svg );
@@ -228,6 +253,9 @@
         this.$svg = this.$wrapper.querySelector(".donut");
         this.$bg = this.$wrapper.querySelector(".donut-bg");
         this.$donut = this.$wrapper.querySelector(".donut-fill");
+        this.$title = this.$wrapper.querySelector(".donut-title");
+        this.$desc = this.$wrapper.querySelector(".donut-desc");
+
         if ( this.$text ) {
             this.$text = this.$wrapper.querySelector(".donut-text");
         }
@@ -280,10 +308,10 @@
         // ensure the transition property is applied before
         // the actual properties are set, so that browser renders
         // the transition
-        _this.$bg.style.transition = this.options.transition;
-        _this.$donut.style.transition = this.options.transition;
-        if ( _this.$text ) {
-            _this.$text.style.transition = this.options.transition;
+        this.$bg.style.transition = this.options.transition;
+        this.$donut.style.transition = this.options.transition;
+        if ( this.$text ) {
+            this.$text.style.transition = this.options.transition;
         }
 
         // use a short timeout (~60fps) to simulate a new
@@ -324,6 +352,37 @@
     };
 
     /**
+     * use the current state to set the text inside
+     * the title and description for accessibility;
+     * @return {object} the donut instance
+     */
+    donutty.prototype.updateAccessibility = function() {
+
+        if ( typeof this.options.title === "function" ) {
+
+            this.$title.innerHTML = this.options.title( this.state );
+
+        } else {
+
+            this.$title.innerHTML = this.options.title;
+
+        }
+
+        if ( typeof this.options.desc === "function" ) {
+
+            this.$desc.innerHTML = this.options.desc( this.state );
+
+        } else {
+
+            this.$desc.innerHTML = this.options.desc;
+
+        }
+
+        return this;
+
+    };
+
+    /**
      * set an individual state property for the chart
      * @param  {string}         prop the property to set
      * @param  {string/number}  val  the value of the given property
@@ -339,6 +398,7 @@
             this.state[ prop ] = val;
             values = this.getDashValues();
             this.updateText();
+            this.updateAccessibility();
             this.animate( values.fill, values.full );
 
         }
@@ -379,6 +439,7 @@
 
         values = this.getDashValues();
         this.updateText();
+        this.updateAccessibility();
         this.animate( values.fill, values.full );
 
         return this;
