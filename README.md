@@ -83,6 +83,7 @@ There's a couple of ways to configure **donutty** depending on how you prefer:
 | **`color`** | `String` | `"mediumslateblue"` | color of the actual donut |
 | **`transition`** | `String` | [¹ see below](#1-default-transition) | the animation which runs on the donut |
 | **`text`** | `Function` | `false` [² see below](#2-text-function) | a function for returning a text/html `String` |
+| **`dir`** | `String` | `""` | a `String` that can accept `"rtl"` for right-to-left modes [³ see below](#3-rtl-mode) |
 
 ##### 1 default transition
 `"all 1.2s cubic-bezier(0.57, 0.13, 0.18, 0.98)"`  
@@ -100,6 +101,13 @@ will append a `html` string which can be used to visualise the value:
         }
     }
 ```
+
+##### 2 rtl mode
+donutty will first check the `dir` option passed in to itself. If it fails to find that
+option, the next thing it will do is look for the html attribute `dir="rtl"` on the
+donut container (element passed in as first parameter). And finally if no `"rtl"` is found
+it will check the `<html>` root element for `<html dir="rtl">`. If any are found, the donut
+will fill in the opposite direction.
 
 ## methods
 There are some methods available for updating/changing values on the

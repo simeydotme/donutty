@@ -59,6 +59,15 @@
         this.options.color =       this.options.color || "mediumslateblue";
         this.options.transition =  this.options.transition || "all 1.2s cubic-bezier(0.57, 0.13, 0.18, 0.98)";
         this.options.text =        isDefined( this.options.text ) ? this.options.text : false;
+        this.options.dir =         isDefined( this.options.dir ) ? this.options.dir : false;
+
+        if ( !this.options.dir ) {
+            this.options.dir = this.$wrapper.dir;
+        }
+
+        if ( !this.options.dir ) {
+            this.options.dir = document.body.parentElement.dir;
+        }
 
         this.init();
 
@@ -166,16 +175,21 @@
 
     donutty.prototype.createSvg = function() {
 
-        var viewbox = this.options.radius * 2 + this.options.thickness + ( this.options.padding * 2 ),
+        var viewbox = this.options.radius * 2 + this.options.thickness + 1,
             rotateExtra = this.options.round ? this.options.thickness / 3 : 0,
-            rotate = this.options.circle ? 90 + rotateExtra : -225;
+            rotate = this.options.circle ? 90 + rotateExtra : -225,
+            scale = this.options.dir === "rtl" ? "-1, 1" : "1, 1";
+
+        if ( this.options.padding >= 0 ) {
+            viewbox += this.options.padding;
+        }
 
         this.$html = doc.createDocumentFragment();
         this.$svg = doc.createElementNS( namespace, "svg" );
 
         this.$svg.setAttribute( "xmlns", namespace );
         this.$svg.setAttribute( "viewbox", "0 0 " + viewbox + " " + viewbox );
-        this.$svg.setAttribute( "transform", "rotate( " + rotate +" )" );
+        this.$svg.setAttribute( "transform", "scale( " + scale + " ) rotate( " + rotate + " )" );
         this.$svg.setAttribute( "preserveAspectRatio", "xMidYMid meet" );
         this.$svg.setAttribute( "class", "donut" );
 
