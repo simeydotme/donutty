@@ -208,6 +208,7 @@
 
         this.$svg.setAttribute( "xmlns", namespace );
         this.$svg.setAttribute( "viewbox", "0 0 " + viewbox + " " + viewbox );
+        this.$svg.setAttribute( "width", "100%" );
         this.$svg.setAttribute( "transform", "scale( " + scale + " ) rotate( " + rotate + " )" );
         this.$svg.setAttribute( "preserveAspectRatio", "xMidYMid meet" );
         this.$svg.setAttribute( "class", "donut" );
