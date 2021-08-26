@@ -1,8 +1,8 @@
 /**
  * Donutty ~ Create SVG donut charts with Javascript
- * 31/1/2021
+ * 27/8/2021
  * @author simeydotme <simey.me@gmail.com>
- * @version 2.2.0
+ * @version 2.3.0
  * @license ISC
  * @link http://simey.me
  * @preserve
@@ -217,6 +217,7 @@
 
         this.$svg.setAttribute( "xmlns", namespace );
         this.$svg.setAttribute( "viewbox", "0 0 " + viewbox + " " + viewbox );
+        this.$svg.setAttribute( "width", "100%" );
         this.$svg.setAttribute( "transform", "scale( " + scale + " ) rotate( " + rotate + " )" );
         this.$svg.setAttribute( "preserveAspectRatio", "xMidYMid meet" );
         this.$svg.setAttribute( "class", "donut" );
