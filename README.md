@@ -83,6 +83,7 @@ There's a couple of ways to configure **donutty** depending on how you prefer:
 | **`color`** | `String` | `"mediumslateblue"` | color of the actual donut |
 | **`transition`** | `String` | [¹ see below](#1-default-transition) | the animation which runs on the donut |
 | **`dir`** | `String` | `""` | a `String` that can accept `"rtl"` for right-to-left modes [² see below](#2-rtl-mode) |
+| **`anchor`** | `String` | `"bottom"` | a `String` that can accept `"top"` or `"bottom"` and decides whether the donut starts at the top or the bottom |
 | **`text`** | `Function` | `false` [³ see below](#3-text-function) | a function for returning a text/html `String` |
 | **`title`** | `Function/String` | `false` [⁴ see below](#4-accessibility) | a function for returning a title `String` |
 | **`desc`** | `Function/String` | `false` [⁴ see below](#4-accessibility) | a function for returning a description `String` |
