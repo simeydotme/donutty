@@ -63,7 +63,7 @@
         this.options.title =       isDefined( this.options.title ) ? this.options.title : function() { return "Donut Chart Graphic"; };
         this.options.desc =        isDefined( this.options.desc ) ? this.options.desc : function( v ) { return "A donut chart ranging from " + v.min + " to " + v.max + " with a current value of " + v.value + "."; };
         this.options.dir =         isDefined( this.options.dir ) ? this.options.dir : false;
-        this.options.anchor =      (isDefined( this.options.anchor ) && this.options.anchor == "top") ? "top" : "bottom";
+        this.options.anchor =      isDefined( this.options.anchor ) && this.options.anchor === "top" ? "top" : "bottom";
 
         if ( !this.options.dir ) {
             this.options.dir = this.$wrapper.dir;
@@ -197,7 +197,7 @@
 
         var viewbox = this.options.radius * 2 + this.options.thickness + 1,
             rotateExtra = this.options.round ? this.options.thickness / 3 : 0,
-            rotateAnchor = this.options.anchor == "top" ? 180 : 0,
+            rotateAnchor = this.options.anchor === "top" ? 180 : 0,
             rotate = (this.options.circle ? 90 + rotateExtra : -225) + rotateAnchor,
             scale = this.options.dir === "rtl" ? "-1, 1" : "1, 1";
 
