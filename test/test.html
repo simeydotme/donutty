@@ -11,13 +11,71 @@
     </head>
     <body>
         <div class="container">
+
             <div class="wrapper">
-                <div data-donutty  dir="rtl"></div>
+                <div data-donutty data-value="75">default</div>
             </div>
+
             <div class="wrapper">
-                <div id="test"></div>
+                <div data-donutty data-value="75" dir="rtl" data-color="cyan">rtl</div>
+            </div>
+
+            <div class="wrapper">
+                <div data-donutty data-value="75" data-anchor="top">top</div>
+            </div>
+
+            <div class="wrapper">
+                <div data-donutty data-value="75" dir="rtl"  data-anchor="top" data-color="cyan">rtl & top</div>
+            </div>
+
+            <div class="wrapper">
+                <div id="test1">default</div>
                 <script>
-                    window.testDonut = new Donutty("#test", {
+                    window.testDonut = new Donutty("#test1", {
+                        circle: false ,
+                        round: false ,
+                        min: -50 ,
+                        max: 50 ,
+                        value: 25 ,
+                        radius: 100 ,
+                        thickness: 20 ,
+                        padding: -10 ,
+                        color: "#f281a9" ,
+                        bg: "rgba(255,199,110,0.2)",
+                        text: function(v) { return `min: ${v.min}, max: ${v.max}, value: ${v.value} ~ %: ${(v.value - v.min)/(v.max - v.min)*100}` },
+                        title: function(v) { return "title " + v.value },
+                        desc: function(v) { return "description " + v.value }
+                    });
+                </script>
+            </div>
+
+            <div class="wrapper">
+                <div id="test2">rtl</div>
+                <script>
+                    window.testDonut = new Donutty("#test2", {
+                        circle: false ,
+                        round: false ,
+                        min: -50 ,
+                        max: 50 ,
+                        value: 25 ,
+                        radius: 100 ,
+                        thickness: 20 ,
+                        padding: -10 ,
+                        color: "magenta" ,
+                        anchor: "default",
+                        dir: "rtl",
+                        bg: "rgba(255,199,110,0.2)",
+                        text: function(v) { return `min: ${v.min}, max: ${v.max}, value: ${v.value} ~ %: ${(v.value - v.min)/(v.max - v.min)*100}` },
+                        title: function(v) { return "title " + v.value },
+                        desc: function(v) { return "description " + v.value }
+                    });
+                </script>
+            </div>
+
+            <div class="wrapper">
+                <div id="test3">top</div>
+                <script>
+                    window.testDonut = new Donutty("#test3", {
                         circle: false ,
                         round: false ,
                         min: -50 ,
@@ -28,10 +86,34 @@
                         padding: -10 ,
                         color: "#f281a9" ,
                         anchor: "top",
+                        dir: "ltr",
                         bg: "rgba(255,199,110,0.2)",
-                        text: function(values) { return "text asdasd ¬ " + values.min + "/" + values.value + "/" + values.max },
-                        title: function(values) { return "title asdasd ¬ " + values.value },
-                        desc: function(values) { return "desc asdasd ¬ " + values.value }
+                        text: function(v) { return `min: ${v.min}, max: ${v.max}, value: ${v.value} ~ %: ${(v.value - v.min)/(v.max - v.min)*100}` },
+                        title: function(v) { return "title " + v.value },
+                        desc: function(v) { return "description " + v.value }
+                    });
+                </script>
+            </div>
+
+            <div class="wrapper">
+                <div id="test4">rtl & top</div>
+                <script>
+                    window.testDonut = new Donutty("#test4", {
+                        circle: false ,
+                        round: false ,
+                        min: -50 ,
+                        max: 50 ,
+                        value: 25 ,
+                        radius: 100 ,
+                        thickness: 20 ,
+                        padding: -10 ,
+                        color: "magenta" ,
+                        anchor: "top",
+                        dir: "rtl",
+                        bg: "rgba(255,199,110,0.2)",
+                        text: function(v) { return `min: ${v.min}, max: ${v.max}, value: ${v.value} ~ %: ${(v.value - v.min)/(v.max - v.min)*100}` },
+                        title: function(v) { return "title " + v.value },
+                        desc: function(v) { return "description " + v.value }
                     });
                 </script>
             </div>

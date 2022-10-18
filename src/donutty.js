@@ -197,9 +197,10 @@
 
         var viewbox = this.options.radius * 2 + this.options.thickness + 1,
             rotateExtra = this.options.round ? this.options.thickness / 3 : 0,
-            rotateAnchor = this.options.anchor === "top" ? 180 : 0,
-            rotate = (this.options.circle ? 90 + rotateExtra : -225) + rotateAnchor,
-            scale = this.options.dir === "rtl" ? "-1, 1" : "1, 1";
+            rotate = (this.options.circle ? 90 + rotateExtra : -225),
+            scaleX = this.options.dir === "rtl" ? "-1" : "1",
+            scaleY = this.options.anchor === "top" ? "-1" : "1",
+            scale = scaleX + "," + scaleY;
 
         if ( this.options.padding >= 0 ) {
             viewbox += this.options.padding;
