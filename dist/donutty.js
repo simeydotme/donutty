@@ -1,8 +1,8 @@
 /**
  * Donutty ~ Create SVG donut charts with Javascript
- * 7/12/2021
+ * 19/10/2022
  * @author simeydotme <simey.me@gmail.com>
- * @version 2.3.1
+ * @version 2.4.0
  * @license ISC
  * @link http://simey.me
  * @preserve
@@ -72,6 +72,7 @@
         this.options.title =       isDefined( this.options.title ) ? this.options.title : function() { return "Donut Chart Graphic"; };
         this.options.desc =        isDefined( this.options.desc ) ? this.options.desc : function( v ) { return "A donut chart ranging from " + v.min + " to " + v.max + " with a current value of " + v.value + "."; };
         this.options.dir =         isDefined( this.options.dir ) ? this.options.dir : false;
+        this.options.anchor =      isDefined( this.options.anchor ) && this.options.anchor === "top" ? "top" : "bottom";
 
         if ( !this.options.dir ) {
             this.options.dir = this.$wrapper.dir;
@@ -205,8 +206,10 @@
 
         var viewbox = this.options.radius * 2 + this.options.thickness + 1,
             rotateExtra = this.options.round ? this.options.thickness / 3 : 0,
-            rotate = this.options.circle ? 90 + rotateExtra : -225,
-            scale = this.options.dir === "rtl" ? "-1, 1" : "1, 1";
+            rotate = (this.options.circle ? 90 + rotateExtra : -225),
+            scaleX = this.options.dir === "rtl" ? "-1" : "1",
+            scaleY = this.options.anchor === "top" ? "-1" : "1",
+            scale = scaleX + "," + scaleY;
 
         if ( this.options.padding >= 0 ) {
             viewbox += this.options.padding;
